@@ -14,9 +14,10 @@ class CanfieldGUI extends TopLevel {
     CanfieldGUI(String title, Game game) {
         super(title, true);
         _game = game;
-        addLabel("Sorry, no graphical interface yet",
+        addLabel("Still working on GUI",
                  new LayoutSpec("y", 0, "x", 0));
         addButton("Quit", "quit", new LayoutSpec("y", 0, "x", 1));
+        addButton("New", "newGame",new LayoutSpec("y", 0, "x", 2));
 
         _display = new GameDisplay(game);
         add(_display, new LayoutSpec("y", 2, "width", 2));
@@ -32,6 +33,11 @@ class CanfieldGUI extends TopLevel {
         System.exit(1);
     }
 
+    /** Announce a win if there is one, ask if user wants another */
+    public void newGame(String dummy) {
+        _game.deal();
+        _display.repaint();
+    }
     /** Action in response to mouse-clicking event EVENT. */
     public synchronized void mouseClicked(MouseEvent event) {
         // FIXME

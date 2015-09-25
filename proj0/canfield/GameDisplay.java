@@ -23,7 +23,7 @@ class GameDisplay extends Pad {
     /* Coordinates and lengths in pixels unless otherwise stated. */
 
     /** Preferred dimensions of the playing surface. */
-    private static final int BOARD_WIDTH = 400, BOARD_HEIGHT = 300;
+    private static final int BOARD_WIDTH = 750, BOARD_HEIGHT = 600;
 
     /** Displayed dimensions of a card image. */
     private static final int CARD_HEIGHT = 125, CARD_WIDTH = 90;
@@ -73,8 +73,28 @@ class GameDisplay extends Pad {
         g.setColor(BACKGROUND_COLOR);
         Rectangle b = g.getClipBounds();
         g.fillRect(0, 0, b.width, b.height);
-        // FIXME
-        paintCard(g, Card.SA, 100, 100);
+        /** Paint top of waste */
+
+        paintCard(g, _game.topReserve(), 50, 250);
+        for (int i = 1; i < 5; i++) {
+            if (_game.topFoundation(i) != null) {
+                paintCard(g, _game.topFoundation(i), 200+i*100, 50);   
+            }    
+        }
+        paintCard(g, _game.topTableau(1), 300, 250);
+        paintCard(g, _game.topTableau(2), 400, 250);
+        paintCard(g, _game.topTableau(3), 500, 250);
+        paintCard(g, _game.topTableau(4), 600, 250);
+        
+
+
+        if (!_game.stockEmpty()) {
+            paintBack(g, 50,  440);
+        }
+
+        if (_game.topWaste()!=null) {
+            paintCard(g, _game.topWaste(), 150, 440);
+        }
     }
 
     /** Game I am displaying. */

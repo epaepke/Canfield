@@ -109,6 +109,9 @@ class TextPlayer extends Player {
                 case "help": case "h": case "?":
                     help();
                     break;
+                case "undo": case "u":
+                    _game.undo();
+                    break;
                 case "quit": case "q":
                     if (endGame()) {
                         return;

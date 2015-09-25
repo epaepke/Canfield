@@ -36,12 +36,22 @@ class Game {
         copyFrom(game0);
     }
 
+    /** Set up undo function */
+    void undo() {
+        if (_pastGames.size() >=2) {
+        copyFrom(_pastGames.get(_pastGames.size()-2));
+        }   
+    }
+
+
     /** Copy my state from GAME0. No state in the result is shared with
      *  GAME0. */
     void copyFrom(Game game0) {
         _stock.copyFrom(game0._stock);
         _waste.copyFrom(game0._waste);
         _reserve.copyFrom(game0._reserve);
+        //Collections.copy(_pastGames, game0._pastGames);
+
         for (int i = 0; i < TABLEAU_SIZE; i += 1) {
             _tableau.get(i).copyFrom(game0._tableau.get(i));
         }
@@ -75,7 +85,7 @@ class Game {
         }
 
         _stock.clear();
-        _stock.move(deck);
+        _stock.move(deck); 
         _waste.clear();
     }
 
@@ -167,6 +177,8 @@ class Game {
                 _waste.move(_stock, 1);
             }
         }
+        Game curr = new Game(this);
+        _pastGames.add(curr);
     }
 
     /** Move the top card of the waste to a suitable foundation pile.
@@ -175,6 +187,8 @@ class Game {
         Pile p = findFoundation(topWaste());
         checkFoundationAdd(topWaste(), p);
         p.move(_waste, 1);
+        Game curr = new Game(this);
+        _pastGames.add(curr);
     }
 
     /** Move the top card of the reserve to a suitable foundation pile.
@@ -183,6 +197,8 @@ class Game {
         Pile p = findFoundation(topReserve());
         checkFoundationAdd(topReserve(), p);
         p.move(_reserve, 1);
+        Game curr = new Game(this);
+        _pastGames.add(curr);
     }
 
     /** Move a card from tableau pile #T, 1 <= T <= TABLEAU_SIZE, to
@@ -197,6 +213,8 @@ class Game {
         checkFoundationAdd(tableau.top(), foundation);
         foundation.move(tableau, 1);
         fillFromReserve(tableau);
+        Game curr = new Game(this);
+        _pastGames.add(curr);
     }
 
     /** Move tableau pile #K0 to tableau pile #K1,
@@ -217,6 +235,8 @@ class Game {
             t1.move(t0);
         }
         fillFromReserve(t0);
+        Game curr = new Game(this);
+        _pastGames.add(curr);
     }
 
     /** Move a card from foundation pile #F, 1 <= F <= Card.NUM_SUITS, to
@@ -231,6 +251,8 @@ class Game {
         }
         checkTableauAdd(foundation.top(), tableau);
         tableau.move(foundation, 1);
+        Game curr = new Game(this);
+        _pastGames.add(curr);
     }
 
     /** Move the top card of the waste to tableau pile #K,
@@ -244,6 +266,9 @@ class Game {
         }
         checkTableauAdd(topWaste(), p);
         p.move(_waste, 1);
+         _pastGames.add(this);
+        Game curr = new Game(this);
+        _pastGames.add(curr);
     }
 
     /** Move the top card of the waste to tableau pile #K,
@@ -253,6 +278,8 @@ class Game {
         Pile p = tableau(k);
         checkTableauAdd(topReserve(), p);
         p.move(_reserve, 1);
+        Game curr = new Game(this);
+        _pastGames.add(curr);
     }
 
     /* === Internal methods === */
@@ -263,6 +290,8 @@ class Game {
         if (p.isEmpty() && !_reserve.isEmpty()) {
             p.move(_reserve, 1);
         }
+        Game curr = new Game(this);
+        _pastGames.add(curr);
     }
 
     /** Return foundation pile #K, 1<=K<=Card.NUM_SUITS. Throws
@@ -357,7 +386,8 @@ class Game {
     private final ArrayList<Pile> _foundation = new ArrayList<>();
     /** The tableau piles. */
     private final ArrayList<Pile> _tableau = new ArrayList<>();
-
+    /** Stores past games. */
+    private final ArrayList<Game> _pastGames = new ArrayList<>();
     /** Source of random numbers for dealing. */
     private final Random _random = new Random();
 }
