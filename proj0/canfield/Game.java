@@ -36,13 +36,15 @@ class Game {
         copyFrom(game0);
     }
 
-    /** Set up undo function */
+    /** Set up undo function. */
     void undo() {
-        if (_pastGames.size() >=2) {
-        copyFrom(_pastGames.get(_pastGames.size()-2));
-        }   
+        if (_pastGames.size() >= 2) {
+            copyFrom(_pastGames.get(_pastGames.size() - 2));
+            _pastGames.remove(_pastGames.size()-1);
+        } else if (_pastGames.size() >= 1) {
+            copyFrom(_pastGames.get(1));
+        }
     }
-
 
     /** Copy my state from GAME0. No state in the result is shared with
      *  GAME0. */
@@ -50,7 +52,6 @@ class Game {
         _stock.copyFrom(game0._stock);
         _waste.copyFrom(game0._waste);
         _reserve.copyFrom(game0._reserve);
-        //Collections.copy(_pastGames, game0._pastGames);
 
         for (int i = 0; i < TABLEAU_SIZE; i += 1) {
             _tableau.get(i).copyFrom(game0._tableau.get(i));
@@ -67,6 +68,11 @@ class Game {
 
     /** Clear the current layout and deal a new one. */
     void deal() {
+        this = new Game();
+        for (int i = 0; i < _pastGames.size()-2; i++) {
+            System.out.println("removed");
+            _pastGames.remove(_pastGames.size()-1-i);
+        }
         Pile deck = new Pile(Card.values());
         deck.shuffle(_random);
 
@@ -85,7 +91,7 @@ class Game {
         }
 
         _stock.clear();
-        _stock.move(deck); 
+        _stock.move(deck);
         _waste.clear();
     }
 
@@ -127,7 +133,7 @@ class Game {
             return tableau(k).get(j);
         } catch (IndexOutOfBoundsException excp) {
             throw err("no such tableau pile");
-        }
+        } 
     }
 
     /** Return the top card of tableau pile #K, where 1 <= K <= TABLEAU_SIZE.
@@ -207,6 +213,7 @@ class Game {
     void tableauToFoundation(int t) {
         Pile tableau = tableau(t);
         if (tableau.isEmpty()) {
+
             throw err("No cards in that pile");
         }
         Pile foundation = findFoundation(tableau.top());
@@ -266,7 +273,6 @@ class Game {
         }
         checkTableauAdd(topWaste(), p);
         p.move(_waste, 1);
-         _pastGames.add(this);
         Game curr = new Game(this);
         _pastGames.add(curr);
     }
@@ -290,8 +296,6 @@ class Game {
         if (p.isEmpty() && !_reserve.isEmpty()) {
             p.move(_reserve, 1);
         }
-        Game curr = new Game(this);
-        _pastGames.add(curr);
     }
 
     /** Return foundation pile #K, 1<=K<=Card.NUM_SUITS. Throws

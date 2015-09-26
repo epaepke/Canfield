@@ -16,7 +16,5 @@ public class GameTest {
         g.deal();
         assertEquals(5, g.getScore());
     }
-
-    // Tests of undo might go here.
-
+    /** Test cases go here. */
 }

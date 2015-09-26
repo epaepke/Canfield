@@ -21,7 +21,6 @@ public class Main {
         Main main = new Main(options);
         main.run();
     }
-    
     /** Set up and play Canfield. */
     void run() {
         Game game = new Game();
