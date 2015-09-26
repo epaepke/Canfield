@@ -204,7 +204,7 @@ class CanfieldGUI extends TopLevel {
             _game.reserveToTableau(2);
         } else if (isTab3(x, y)) {
             _game.reserveToTableau(3);
-        } else if (isTab1(x, y)) {
+        } else if (isTab4(x, y)) {
             _game.reserveToTableau(4);
         }
     }
