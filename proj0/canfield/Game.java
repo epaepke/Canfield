@@ -40,9 +40,9 @@ class Game {
     void undo() {
         if (_pastGames.size() >= 2) {
             copyFrom(_pastGames.get(_pastGames.size() - 2));
-            _pastGames.remove(_pastGames.size()-1);
+            _pastGames.remove(_pastGames.size() - 1);
         } else if (_pastGames.size() >= 1) {
-            copyFrom(_pastGames.get(1));
+            copyFrom(_pastGames.get(_pastGames.size() - 1));
         }
     }
 
@@ -68,11 +68,6 @@ class Game {
 
     /** Clear the current layout and deal a new one. */
     void deal() {
-        this = new Game();
-        for (int i = 0; i < _pastGames.size()-2; i++) {
-            System.out.println("removed");
-            _pastGames.remove(_pastGames.size()-1-i);
-        }
         Pile deck = new Pile(Card.values());
         deck.shuffle(_random);
 
@@ -133,7 +128,7 @@ class Game {
             return tableau(k).get(j);
         } catch (IndexOutOfBoundsException excp) {
             throw err("no such tableau pile");
-        } 
+        }
     }
 
     /** Return the top card of tableau pile #K, where 1 <= K <= TABLEAU_SIZE.

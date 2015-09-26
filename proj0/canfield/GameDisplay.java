@@ -24,7 +24,7 @@ class GameDisplay extends Pad {
     /* Coordinates and lengths in pixels unless otherwise stated. */
 
     /** Preferred dimensions of the playing surface. */
-    private static final int BOARD_WIDTH = 750, BOARD_HEIGHT = 600;
+    private static final int BOARD_WIDTH = 750, BOARD_HEIGHT = 700;
 
     /** Displayed dimensions of a card image. */
     private static final int CARD_HEIGHT = 125, CARD_WIDTH = 90;

@@ -59,18 +59,14 @@ class CanfieldGUI extends TopLevel {
     CanfieldGUI(String title, Game game) {
         super(title, true);
         _game = game;
-        //addLabel("Stock",
-          //       new LayoutSpec("y", 0, "x", 0));
-        addButton("Quit", "quit", new LayoutSpec("y", 0, "x", 0));
-        addButton("New", "newGame", new LayoutSpec("y", 0, "x", 1));
-        addButton("Undo", "undoMove", new LayoutSpec("y", 0, "x", 2));
-
         _display = new GameDisplay(game);
+        addMenuButton("Actions->New", "newGame");
+        addMenuButton("Actions->Undo", "undoMove");
+        addButton("Quit", "quit", new LayoutSpec("y", 0, "x", 1));
         add(_display, new LayoutSpec("y", 2, "width", 2));
         _display.setMouseHandler("click", this, "mouseClicked");
-        _display.setMouseHandler("release", this, "mouseReleased");
         _display.setMouseHandler("drag", this, "mouseDragged");
-
+        _display.setMouseHandler("release", this, "mouseReleased");
         display(true);
     }
 

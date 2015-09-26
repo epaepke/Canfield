@@ -76,5 +76,4 @@ class SampleData {
     private final HashSet<Point> _points = new HashSet<>();
     /** List of my line segments. */
     private final HashSet<Segment> _lines = new HashSet<>();
-
 }
