@@ -19,6 +19,7 @@ class Game {
 
     /** A new Game, as yet undealt. */
     Game() {
+        ArrayList<Game> _pastGames = new ArrayList<>();
         _stock = new Pile();
         _waste = new Pile();
         _reserve = new Pile();
@@ -41,8 +42,6 @@ class Game {
         if (_pastGames.size() >= 2) {
             copyFrom(_pastGames.get(_pastGames.size() - 2));
             _pastGames.remove(_pastGames.size() - 1);
-        } else if (_pastGames.size() >= 1) {
-            copyFrom(_pastGames.get(_pastGames.size() - 1));
         }
     }
 
@@ -88,6 +87,9 @@ class Game {
         _stock.clear();
         _stock.move(deck);
         _waste.clear();
+
+        Game curr = new Game(this);
+        _pastGames.add(curr);
     }
 
     /** Return true iff the game is won. */
@@ -103,6 +105,12 @@ class Game {
             n += p.size();
         }
         return n * POINTS_PER_CARD;
+    }
+
+
+    /** Return the current score. */
+    ArrayList<Game> getPastGames() {
+        return _pastGames;
     }
 
     /** Return true iff the stock is empty. */

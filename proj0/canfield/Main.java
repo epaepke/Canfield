@@ -36,7 +36,6 @@ public class Main {
         if (_options.contains("--seed")) {
             game.seed(_options.getLong("--seed"));
         }
-
         player.play();
     }
 
