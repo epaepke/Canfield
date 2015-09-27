@@ -19,7 +19,6 @@ class Game {
 
     /** A new Game, as yet undealt. */
     Game() {
-        ArrayList<Game> _pastGames = new ArrayList<>();
         _stock = new Pile();
         _waste = new Pile();
         _reserve = new Pile();

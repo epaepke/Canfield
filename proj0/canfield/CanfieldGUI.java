@@ -419,21 +419,21 @@ class CanfieldGUI extends TopLevel {
         } else if (isReserve(xDrag, yDrag)) {
             moveReserve(endxDrag, endyDrag);
         } else if (isTab1t(xDrag, yDrag)) {
-            moveTab1t(endxDrag, endyDrag); 
+            moveTab1t(endxDrag, endyDrag);
         } else if (isTab2t(xDrag, yDrag)) {
             moveTab2t(endxDrag, endyDrag);
         } else if (isTab3t(xDrag, yDrag)) {
             moveTab3t(endxDrag, endyDrag);
         } else if (isTab4t(xDrag, yDrag)) {
-            moveTab4t(endxDrag, endyDrag); 
+            moveTab4t(endxDrag, endyDrag);
         } else if (isTab1b(xDrag, yDrag)) {
-            moveTab1b(endxDrag, endyDrag); 
+            moveTab1b(endxDrag, endyDrag);
         } else if (isTab2b(xDrag, yDrag)) {
             moveTab2b(endxDrag, endyDrag);
         } else if (isTab3b(xDrag, yDrag)) {
             moveTab3b(endxDrag, endyDrag);
         } else if (isTab4b(xDrag, yDrag)) {
-            moveTab4b(endxDrag, endyDrag);   
+            moveTab4b(endxDrag, endyDrag);
         } else if (isFound1(xDrag, yDrag)) {
             moveFound1(endxDrag, endyDrag);
         } else if (isFound2(xDrag, yDrag)) {
